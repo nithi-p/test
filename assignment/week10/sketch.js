@@ -1,36 +1,53 @@
-var noiseT = 0.0;
-var numEllipses = 2;
-var angle = 0.0;//the starting angle of our wave
-/**
- * function that runs before setup.  typically http requests done here
- * @return {[type]} [description]
- */
-function preload(){
-}
+
+var border = 15;  //MARGIN
+var x1 = 0;
+var y1 = 0;
+var di = 2;
+var i = 1;
+
+//ADD THE VARIATION OF SHADE
+var fiftyShadeOfGrey = random(0, 50);
+var alph = random(80, 200);
 
 function setup() {
-  //create our drawing canvas
-  createCanvas(windowWidth, windowHeight);
-  smooth();
-
-  //minim = new Minim (this);
-  //input = minim.getLineIn (Minim.STEREO,512); // Get sound from Line-in
-  
-  // Create an Audio input
-  mic = new p5.AudioIn();
-
-  // start the Audio Input.
-  // By default, it does not .connect() (to the computer speakers)
-  mic.start();
-  background (0);
-  text("PLEASE MAKE SOME SOUND  |  PRESS ANY KEY TO RESET", 10,height-10);
+ createCanvas(windowWidth, windowHeight);
+ background(255);
+ //DRAW THE FIRST POINT AT THE FIRST RANDOM POSITION
+ di = random(5,15);
+ x1 = random(border, width-border);
+ y1 = random(border, height-border);
+ fill(fiftyShadeOfGrey, fiftyShadeOfGrey, fiftyShadeOfGrey, alph);
+ noStroke();
+ ellipse(x1, y1, di, di); 
 }
+
 
 function draw() {
-  for(var i=0; i < numEllipses; i++)
-    for (var j = 0; j < width; j++) {
-      ellipse(j+noiseT, i * height/numEllipses + map(sin(angle), -1,1,-height/2,height/2), 40,40);
-      angle +=0.1;
-    }
-    noiseT+=0.001;
-}
+  // CREATE OTHER 5000 POINTS & CONNECTING LINE
+  while ( i < 5000) {
+    // CREATE A NEW RANDOM POSITION
+    var x2 = random(border,width-border);
+    var y2 = random(border,height-border);
+    
+    // DRAW THE LINE FROM AN OLD POSITION TO A NEW POSITION
+    stroke(fiftyShadeOfGrey, fiftyShadeOfGrey, fiftyShadeOfGrey, alph);
+    line (x1, y1, x2, y2); // DRAW
+    
+    // NOW X1 and Y1 REFER TO THE NEW POSITION
+    x1 = x2;
+    y1 = y2;
+
+    
+    // DRAW THE NEW POINT AT THE NEW POSITION
+    di = random(5,15);
+    fiftyShadeOfGrey = random(0,50);
+    alph = random(80,200);
+    fill(fiftyShadeOfGrey,fiftyShadeOfGrey,fiftyShadeOfGrey, alph);
+    noStroke();
+    ellipse(x1,y1,di,di); // DRAW
+    
+    // NEXT
+    i++;
+
+ }
+} 
