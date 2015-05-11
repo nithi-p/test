@@ -34,7 +34,7 @@ var videoInput;
 
 
 function preload() {
-  soundFile = loadSound('../../music/music.mp3');
+  soundFile = loadSound('music.mp3');
 }
 
 function setup() {
