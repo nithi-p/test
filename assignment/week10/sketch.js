@@ -46,6 +46,9 @@ function draw() {
     noStroke();
     ellipse(x1,y1,di,di); // DRAW
     
+    line (x2, y2, mouseX,mouseY);
+    line (x1, y1, mouseX,mouseY);
+
     // NEXT
     i++;
 
